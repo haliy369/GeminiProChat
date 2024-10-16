@@ -1,16 +1,7 @@
 [build]
-  # 构建命令，使用 Astro 的构建命令
   command = "OUTPUT=netlify astro build"
-  
-  # 输出的发布目录
   publish = "dist"
-
-  # 设置使用 pnpm 作为包管理工具
   environment = { NETLIFY_USE_PNPM = "true" }
-
-# Edge Functions 配置，可以根据需要自定义
-[functions]
-  node_bundler = "esbuild"
 
 # 设置重定向规则
 [[redirects]]
@@ -33,12 +24,12 @@
   to = "/.netlify/edge-functions/entry"
   status = 200
 
-# Headers 设置，用于指定文件的 MIME 类型
 [[headers]]
   for = "/manifest.webmanifest"
   [headers.values]
     Content-Type = "application/manifest+json"
 
-# 自定义的 Edge Functions 目录
+# 合并两个 functions 块为一个
 [functions]
+  node_bundler = "esbuild"
   directory = ".netlify/edge-functions"
